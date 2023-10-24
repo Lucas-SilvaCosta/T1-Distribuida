@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  apiGatekeeper:
+    container_name: gatekeeper
+    build: gatekeeper
+    ports:
+      - 8080:8080
+    volumes:
+      - ./gatekeeper:/usr/src/gatekeeper
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--insecure", "https://localhost:8080"]
+      interval: 60s
+      retries: 5
+      start_period: 20s
+    restart: always
+    env_file:
+      - .env
+
+
+networks:
+  default:
+    name: network
+    external: true

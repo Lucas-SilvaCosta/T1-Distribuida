@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns="http://portal.mec.gov.br/diplomadigital/arquivos-em-xsd"
+			targetNamespace="http://portal.mec.gov.br/diplomadigital/arquivos-em-xsd"
+			elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.1.xsd" />
+	<xs:include schemaLocation="leiauteDiplomaDigital_v1.0x.xsd" />
+	<xs:include schemaLocation="tiposBasicos_v1.0x.xsd" />
+
+	<xs:complexType name="TDadosRegulatoriosIES">
+		<xs:annotation>
+			<xs:documentation>Arquivo com dados regulatorios referentes a uma IES, emitida pelo MEC</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element minOccurs="1" maxOccurs="1" name="infArquivoDadosRegulatoriosIES" type="TInfArquivoDadosRegulatoriosIES" />
+			<xs:element ref="ds:Signature" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TDadosRegulatoriosCursoGraduacao">
+		<xs:annotation>
+			<xs:documentation>Arquivo com dados regulatorios referentes a um curso de graduação de uma IES, emitida pelo MEC</xs:documentation>
+		</xs:annotation>
+		
+		<xs:sequence>
+			<xs:element minOccurs="1" maxOccurs="1" name="infArquivoDadosRegulatoriosCursoGraduacao" type="TInfArquivoDadosRegulatoriosCursoGraduacao" />
+			<xs:element ref="ds:Signature" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TInfArquivoDadosRegulatoriosIES">
+		<xs:annotation>
+			<xs:documentation>Tipo que define o conjunto de informações referentes ao Arquivo de Dados Regulatorios de uma IES</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="1" maxOccurs="1" name="InstituicaoEnsino" type="TDadosInformacoesRegulatoriasIes" />
+			<xs:element minOccurs="1" maxOccurs="1" name="HistoricoAtos" type="THistoricoAtosIES" />
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVersao" use="required">
+			<xs:annotation>
+				<xs:documentation>Versão do leiaute (v1.0x)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ambiente" type="TAmb" default="Produção" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					Especifica o contexto no qual o Arquivo de Fiscalização foi emitido. 
+					Apenas Arquivos de Fiscalização emitidos no ambiente "Produção" são legalmente válidos.
+					Caso não seja especificado, o Ambiente é "Produção" e o Arquivo de Fiscalização é legalmente válido.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="TInfArquivoDadosRegulatoriosCursoGraduacao">
+		<xs:annotation>
+			<xs:documentation>Tipo que define o conjunto de informações referentes ao Arquivo de Dados Regulatorios de um curso de graduação</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="1" maxOccurs="1" name="InstituicaoEnsino" type="TDadosMinimosIES" />
+			<xs:element minOccurs="1" maxOccurs="1" name="CursoGraduacao" type="TDadosInformacoesRegulatoriasCursoGraduacao" />
+			<xs:element minOccurs="1" maxOccurs="1" name="HistoricoAtos" type="THistoricoAtosCursoGraduacao" />
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVersao" use="required">
+			<xs:annotation>
+				<xs:documentation>Versão do leiaute (v1.0x)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ambiente" type="TAmb" default="Produção" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+					Especifica o contexto no qual o Arquivo de Fiscalização foi emitido. 
+					Apenas Arquivos de Fiscalização emitidos no ambiente "Produção" são legalmente válidos.
+					Caso não seja especificado, o Ambiente é "Produção" e o Arquivo de Fiscalização é legalmente válido.
+				</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	
+	<xs:complexType name="TDadosInformacoesRegulatoriasIes">
+		<xs:annotation>
+			<xs:documentation>Informações regulatórios conforme determinada pelo MEC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Nome" type="TNomeIES" />
+			<xs:element name="Sigla" type="TNomeIES" />
+			<xs:element name="CodigoMEC" type="TCodIESMEC" />
+			<xs:element name="CNPJ" type="TCnpj" />
+			<xs:element name="Endereco" type="TEndereco" />
+			<xs:element minOccurs="0" name="Mantenedora">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RazaoSocial" type="TRazaoSocial" />
+						<xs:element name="CodigoMEC" type="TCodIESMEC" />
+						<xs:element name="CNPJ" type="TCnpj" />
+						<xs:element name="Endereco" type="TEndereco" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CategoriaOrganizacaoAcademica" type="TCategoriaOrganizacaoAcademica"/>
+			<xs:element name="Ativa" type="TSimNao"/>
+			<xs:element name="PossuiPrerrogativaDeRegistroInterno" type="TSimNao"/>
+			<xs:element name="PossuiPrerrogativaDeRegistroExterno" type="TSimNao"/>
+			<xs:element name="CredenciadaParaCursosPresenciais" type="TSimNao"/>
+			<xs:element name="CredenciadaParaCursosEAD" type="TSimNao"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TDadosMinimosIES">
+		<xs:annotation>
+			<xs:documentation>Informações mínimas para identificação de uma IES</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Nome" type="TNomeIES" />
+			<xs:element name="CodigoMEC" type="TCodIESMEC" />
+			<xs:element name="CNPJ" type="TCnpj" />
+			<xs:element minOccurs="0" name="Mantenedora">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RazaoSocial" type="TRazaoSocial" />
+						<xs:element name="CodigoMEC" type="TCodIESMEC" />
+						<xs:element name="CNPJ" type="TCnpj" />
+						<xs:element name="Endereco" type="TEndereco" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TDadosInformacoesRegulatoriasCursoGraduacao">
+		<xs:annotation>
+			<xs:documentation>Dados do curso</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NomeCurso" type="TString" />
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="CodigoCursoEMEC" type="TCodCursoMEC" />
+				</xs:sequence>
+				<xs:sequence>
+					<xs:element name="SemCodigoCursoEMEC" type="TInformacoesTramitacaoEMEC" />
+				</xs:sequence>
+			</xs:choice>
+			<xs:element name="EnderecoCurso" type="TEndereco" />
+			<xs:element name="Grau" type="TGrauConferido" />
+			<xs:element name="Modalidade" type="TModalidadeCurso" />
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="Polo" type="TPoloInformacoesRegulatorias" />
+			<xs:element name="DataFuncionamento" type="TData" />
+			<xs:element name="CargaHoraria" type="THoraRelogio" />
+			<xs:element name="Periodicidade" type="TPeriodicidadeCurso" />
+			<xs:element name="Integralizacao" type="TNumeroPositivo" />
+			<xs:element name="EmAtividade" type="TSimNao" />
+			<xs:element name="NumeroVagasAnuaisAutorizadas" type="TNumeroPositivo" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="THistoricoAtosIES">
+		<xs:annotation>
+			<xs:documentation>Informações regulatórios sobre histórico dos Atos Regulatórios relacionados a IES</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="unbounded">
+			<xs:choice>
+				<xs:element name="Credenciamento" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="CredenciamentoEAD" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="Recredenciamento" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="CriaçãoPoloEAD" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="RecredenciamentoEAD" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="Descredenciamento" type="TInformacoesAtoRegulatorio" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TPoloInformacoesRegulatorias">
+    <xs:complexContent>
+        <xs:extension base="TPolo">
+            <xs:sequence>
+                <xs:element name="NumeroVagasAnuaisAutorizadas" type="TNumeroPositivo" />
+            </xs:sequence>
+        </xs:extension>
+    </xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="THistoricoAtosCursoGraduacao">
+		<xs:annotation>
+			<xs:documentation>Informações regulatórios sobre histórico dos Atos Regulatórios relacionados a IES</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="unbounded">
+			<xs:choice>
+				<xs:element name="Autorizacao" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="AutorizacaoEAD" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="Reconhecimento" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="ReconhecimentoEAD" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="RenovacaoReconhecimento" type="TInformacoesAtoRegulatorio" />
+				<xs:element name="RenovacaoReconhecimentoEAD" type="TInformacoesAtoRegulatorio" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TInformacoesAtoRegulatorio">
+		<xs:annotation>
+			<xs:documentation>Informações sobre o ato regulatório declarada pelo MEC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Vigente" type="TSimNao" />
+			<xs:element minOccurs="0" name="PrazoValidade" type="TData" />
+			<xs:element name="InformacoesAtoRegulatorio" type="TAtoRegulatorioComOuSemEMEC" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="TCategoriaOrganizacaoAcademica">
+		<xs:annotation>
+			<xs:documentation>Categoria na qual se enquadra a Instituição</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="TString">
+			<xs:enumeration value="Faculdade" />
+			<xs:enumeration value="Centro Universitário" />
+			<xs:enumeration value="Universidade" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TPeriodicidadeCurso">
+		<xs:annotation>
+			<xs:documentation>Periodicidade do curso</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="TString">
+			<xs:enumeration value="Integral" />
+			<xs:enumeration value="Semestral" />
+			<xs:enumeration value="Anual" />
+			<xs:enumeration value="Modular" />
+			<xs:enumeration value="Trimestral" />
+			<xs:enumeration value="Quadrimestral" />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema> 
