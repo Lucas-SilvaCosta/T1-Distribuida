@@ -52,6 +52,4 @@ app.post('/read', async (req, res, next) => {
 
 app.use(bodyParser)
 
-// app.use(errorHandler)
-
 app.listen(port, host)

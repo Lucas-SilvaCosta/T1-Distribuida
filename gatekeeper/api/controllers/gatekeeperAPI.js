@@ -1,9 +1,6 @@
 'use strict'
 
 const axios = require('axios')
-// const validator = require('../utils/xmlValidator/xmlparser')
-// const CustomError = require('../utils/CustomError')
-// const WrapperError = require('../utils/WrapperError')
 const app = require('../app')
 
 const apprun = 'http://appmarbles:8080'
@@ -24,17 +21,17 @@ module.exports = () => {
      */
     controller.submit = async (req, res, next) => {
         try {
-            if (!req.rawBody.Owner || req.rawBody.Owner == "") {
+            if (!req.body.data.Owner || req.body.data.Owner == "") {
                 throw Error("Invalid Owner value")
             }
-            if (!req.rawBody.Color || req.rawBody.Color == "") {
+            if (!req.body.data.Color || req.body.data.Color == "") {
                 throw Error("Invalid Color value")
             }
-            if (!req.rawBody.Size || req.rawBody.Size == 0) {
+            if (!req.body.data.Size || req.body.data.Size == 0) {
                 throw Error("Invalid Size value")
             }
 
-            const appParams = { op: 'write', path: req.rawBody }
+            const appParams = { op: 'write', path: req.body.data }
             try {
                 await axios.post(apprun + '/write', {
                     data: appParams

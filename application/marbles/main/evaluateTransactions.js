@@ -3,7 +3,6 @@
 /**@module EvaluateTransactions */
 const marbles = require('../marbles')
 const helper = require('./utils/helper')
-// const CustomError = require('./utils/CustomError')
 
 /**
  * Process transactions of type read.

@@ -1,8 +1,6 @@
 'use strict'
 
 const axios = require('axios')
-// const CustomError = require('./utils/CustomError')
-// const WrapperError = require('./utils/WrapperError')
 
 const apprun = 'http://appmarbles:8080'
 

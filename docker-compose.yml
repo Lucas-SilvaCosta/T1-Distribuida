@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  apiGatekeeper:
+  apigatekeeper:
     container_name: gatekeeper
     build: gatekeeper
     ports:
