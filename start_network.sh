@@ -20,6 +20,7 @@ while getopts 'b' flag; do
 done
 
 PROJECT=$(pwd)
+MINIFAB_PATH=$HOME/mywork
 echo -e "${BLUE}==> PROJECT PATH = ${PROJECT}${CLR}"
 
 # Checks if there is already a acadblock installation.
